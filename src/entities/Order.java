@@ -14,7 +14,7 @@ public class Order {
 	private OrderStatus status;
 
 	private Client client;
-	private List<OrderItem> items = new ArrayList<>();
+	private List<OrderItem> items = new ArrayList<OrderItem>();
 
 	public Order() {
 
@@ -50,10 +50,6 @@ public class Order {
 		items.remove(item);
 	}
 
-	public List<OrderItem> getItems() {
-		return items;
-	}
-
 	public Client getClient() {
 		return client;
 	}
@@ -62,7 +58,7 @@ public class Order {
 		this.client = client;
 	}
 
-	public Double total() {
+	public double total() {
 		double sum = 0;
 		for (OrderItem it : items) {
 			sum += it.subTotal();
@@ -70,28 +66,24 @@ public class Order {
 		return sum;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" Likes - ");
-		sb.append("ORDER SUMMARY:" + "\n");
 		sb.append("Order moment: ");
 		sb.append(stdf.format(moment) + "\n");
 		sb.append("Order status:");
 		sb.append(status.toString() + "\n");
 		sb.append("Client: ");
-		sb.append(client.getName() + " - " + client.getEmail() + "\n");
+		sb.append(client.toString() + "\n");
 		sb.append("Order items:" + "\n");
-		// parei AQUI
-		return sb.toString();
 
-	}
-
-	public String itemsToString() {
-		for (OrderItem ord : items) {
-			return ord.getProduct().getName() + ", $" + ord.getProduct().getPrice() + ", Quantity:"
-					+ ord.getQuantity() + ", Subtotal: $" + ord.subTotal();
-			
+		for (OrderItem item : items) {
+			sb.append(item.toString() + "\n");
 		}
+
+		sb.append("Total price: $");
+		sb.append(String.format("%.2f", total()));
+		return sb.toString();
 	}
 
 }

@@ -30,26 +30,30 @@ public class Program {
 		String status = scan.nextLine();
 		OrderStatus orderStatus = OrderStatus.valueOf(status);
 		Order order = new Order(orderStatus, client);
+
 		System.out.println("How many items to this order");
 		int num = scan.nextInt();
-
 		for (int i = 1; i <= num; i++) {
-
 			System.out.println("Enter #" + i + " item data");
 			System.out.println("Product name:");
+			scan.nextLine();
 			String pName = scan.nextLine();
 			System.out.println("Product price:");
 			double pPrice = scan.nextDouble();
 			Product product = new Product(pName, pPrice);
 			System.out.println("Quantity:");
 			int pQuantity = scan.nextInt();
-			OrderItem orderItem = new OrderItem(pQuantity, pPrice, product);
-			order.addItem(orderItem);
 
+			OrderItem orderItem = new OrderItem(pQuantity, pPrice, product);
+
+			order.addItem(orderItem);
 		}
-		
+
+		System.out.println();
 		System.out.println("ORDER SUMMARY:");
+		System.out.println(order.toString());
 		
+		scan.close();
 
 	}
 
